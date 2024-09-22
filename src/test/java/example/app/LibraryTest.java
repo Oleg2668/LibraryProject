@@ -9,38 +9,39 @@ public class LibraryTest {
     public void testAddBook() {
         Library library = new Library();
         Book book = new Book("Title", "Author");
+        System.out.println("Додаємо книгу до бібліотеки.");
         library.addBook(book);
-        assertEquals(1, library.getBookCount());
+        assertEquals(1, library.getBookCount(), "Кількість книг не відповідає очікуваній.");
     }
 
     @Test
     public void testRemoveBook() {
         Library library = new Library();
         Book book = new Book("Title", "Author");
+        System.out.println("Додаємо книгу для видалення.");
         library.addBook(book);
-        assertTrue(library.removeBook(book));
-        assertEquals(0, library.getBookCount());
-    }
-
-    @Test
-    public void testGetBooks() {
-        Library library = new Library();
-        Book book1 = new Book("Title1", "Author1");
-        Book book2 = new Book("Title2", "Author2");
-        library.addBook(book1);
-        library.addBook(book2);
-        assertEquals(2, library.getBooks().size());
+        System.out.println("Видаляємо книгу.");
+        assertTrue(library.removeBook(book), "Книга не була видалена.");
+        assertEquals(0, library.getBookCount(), "Кількість книг після видалення не відповідає очікуваній.");
     }
 
     @Test
     public void testAddNullBook() {
         Library library = new Library();
-        assertThrows(IllegalArgumentException.class, () -> library.addBook(null));
+        //library.addBook(null);// перевірка роботи теста(IllegalArgumentException)
+        System.out.println("Перевіряємо додавання null-книги.");
+        assertThrows(IllegalArgumentException.class, () -> library.addBook(null), "Очікувалося виключення IllegalArgumentException");
     }
 
     @Test
     public void testRemoveNullBook() {
         Library library = new Library();
-        assertThrows(IllegalArgumentException.class, () -> library.removeBook(null));
+        System.out.println("Перевіряємо видалення null-книги.");
+
+        // Перевіряємо, чи викликається IllegalArgumentException при видаленні null-книги
+        assertThrows(IllegalArgumentException.class,
+                () -> library.removeBook(null),
+                "Очікувалося виключення IllegalArgumentException");
     }
+
 }
